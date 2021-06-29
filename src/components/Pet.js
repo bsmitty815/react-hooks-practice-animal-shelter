@@ -1,24 +1,57 @@
 import React from "react";
 
-function Pet() {
+function Pet({pet, onAdoptPet}) {
+
+  //this is another way to do the gender of the dog in an if statement
+  //or you can do it in a turnary inside the jsx
+  // const dogGender = () => {
+  //   if (petData.gender === "male" ) {
+  //     return "♂"
+  //   } else {
+  //     return "♀"
+  //   }
+
+  // }
+
+  function handleClick() {
+    
+    if (pet.isAdopted === false) {
+      onAdoptPet(pet.id)
+    } 
+    
+  }
+
+
+  //this is another way you can toggle between the buttons or you can do it like below
+  //   <button className={ petData.isAdopted ? 'ui primary button' : 'ui disabled button' }>Already adopted</button>
+  //   <button style={ petData.isAdopted ? {"display" : "none"}  : {/* if false do nothing */} }
+  //   onClick={handleClick} id={petData.id}
+  //   className="ui primary button">Adopt pet
+  // </button>
+
   return (
-    <div className="card">
+    <div className="card" data-testid="pet">
       <div className="content">
         <span className="header">
-          {/*'♀' OR '♂' */}
-          PET NAME
+          {pet.gender === "female" ? "♀" : "♂"}
+          {pet.name}
         </span>
         <div className="meta">
-          <span className="date">PET TYPE</span>
+          <span className="date">{pet.type}</span>
         </div>
         <div className="description">
-          <p>Age: PET AGE</p>
-          <p>Weight: PET WEIGHT</p>
+          <p>Age: {pet.age}</p>
+          <p>Weight: {pet.weight}</p>
         </div>
       </div>
       <div className="extra content">
-        <button className="ui disabled button">Already adopted</button>
-        <button className="ui primary button">Adopt pet</button>
+        {pet.isAdopted ? (
+          <button className="ui disabled button">Already adopted</button>
+        ) : (
+          <button className="ui primary button" onClick={handleClick}>
+            Adopt pet
+          </button>
+        )}
       </div>
     </div>
   );
